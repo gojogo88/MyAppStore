@@ -10,29 +10,26 @@ import UIKit
 
 class AppsSearchController: UICollectionViewController {
 
-  fileprivate let reuseIdentifier = "Cell"
+  let dataSource = SearchResultDataSource()
   
   override func viewDidLoad() {
     super.viewDidLoad()
 
     collectionView.backgroundColor = .white
 
+    collectionView.dataSource = dataSource
+    
+    dataSource.dataChanged = { [weak self] in
+      self?.collectionView.reloadData()
+    }
+    
     // Register cell classes
-    self.collectionView!.register(SearchResultCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+    self.collectionView!.register(SearchResultCell.self, forCellWithReuseIdentifier: dataSource.reuseIdentifier)
+    
+    dataSource.fetchITunesApps("https://itunes.apple.com/search?term=instagram&entity=software")
     
   }
 
-  // MARK: - CollectionView Datasource
-  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 5
-  }
-  
-  override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-  
-    
-    return cell
-  }
   
   // MARK: - Init
   init() {
@@ -50,3 +47,4 @@ extension AppsSearchController: UICollectionViewDelegateFlowLayout {
     return .init(width: view.frame.width, height: 350)
   }
 }
+
