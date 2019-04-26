@@ -15,7 +15,10 @@ class SearchResultDataSource: NSObject, UICollectionViewDataSource {
   
   let reuseIdentifier = "Cell"
   
-  func fetchITunesApps(_ urlString: String) {
+  func fetchITunesApps(searchTerm: String) {
+    
+    let urlString = "https://itunes.apple.com/search?term=\(searchTerm)&entity=software"
+    
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601
     
@@ -34,17 +37,10 @@ class SearchResultDataSource: NSObject, UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SearchResultCell
     
-    configure(cell, at: indexPath)
+    cell.appResult = appResults[indexPath.item]
     
     return cell
   }
   
-  fileprivate func configure(_ cell: SearchResultCell, at indexPath: IndexPath) {
-    
-    let appResult = appResults[indexPath.item]
-    cell.nameLabel.text = appResult.trackName
-    cell.categoryLabel.text = appResult.primaryGenreName
-    cell.ratingsLabel.text = "Ratings: \(appResult.averageUserRating ?? 0)"
-  }
   
 }
