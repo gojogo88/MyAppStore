@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppsSearchController: UICollectionViewController {
+class AppsSearchController: BaseListController {
 
   let dataSource = SearchResultDataSource()
   
@@ -50,16 +50,6 @@ class AppsSearchController: UICollectionViewController {
     searchController.dimsBackgroundDuringPresentation = false
     searchController.searchBar.delegate = self
   }
-  
-  // MARK: - Init
-  init() {
-    super.init(collectionViewLayout: UICollectionViewFlowLayout())
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
 }
 
 extension AppsSearchController: UICollectionViewDelegateFlowLayout {
