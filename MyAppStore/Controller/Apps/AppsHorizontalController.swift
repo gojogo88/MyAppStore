@@ -35,7 +35,9 @@ class AppsHorizontalController: BaseListController {
 extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let height = (view.frame.height - 2 * topBottomPadding - 2 * interimSpacing) / 3
+    let margins = topBottomPadding * 2
+    let spacing = interimSpacing * 2
+    let height = (view.frame.height - margins - spacing) / 3
     return .init(width: view.frame.width - 40, height: height)
   }
   

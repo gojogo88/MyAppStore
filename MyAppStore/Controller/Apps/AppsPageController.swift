@@ -8,9 +8,9 @@
 
 import UIKit
 
-class AppsController: BaseListController {
+class AppsPageController: BaseListController {
 
-  let dataSource = AppsDataSource()
+  let dataSource = AppsPageDataSource()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -20,18 +20,24 @@ class AppsController: BaseListController {
     
     // Register cell classes
     self.collectionView!.register(AppsGroupCell.self, forCellWithReuseIdentifier: dataSource.reuseIdentifier)
+    
+    self.collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: dataSource.headerId)
 
   }
 
   
 }
 
-extension AppsController: UICollectionViewDelegateFlowLayout {
+extension AppsPageController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return .init(width: view.frame.width, height: 300)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     return .init(top: 16, left: 0, bottom: 0, right: 0)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    return .init(width: view.frame.width, height: 300)
   }
 }

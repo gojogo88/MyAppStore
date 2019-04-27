@@ -8,9 +8,11 @@
 
 import UIKit
 
-class AppsDataSource: NSObject, UICollectionViewDataSource {
+class AppsPageDataSource: NSObject, UICollectionViewDataSource {
 
   let reuseIdentifier = "Cell"
+  
+  let headerId = "headerId"
   
   // MARK: - CollectionView DataSource
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -23,5 +25,11 @@ class AppsDataSource: NSObject, UICollectionViewDataSource {
     //cell.appResult = appResults[indexPath.item]
     
     return cell
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+    
+    return header
   }
 }
