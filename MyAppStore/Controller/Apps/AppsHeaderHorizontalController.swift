@@ -24,7 +24,14 @@ class AppsHeaderHorizontalController: BaseListController {
     if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
       layout.scrollDirection = .horizontal
     }
+  
+    dataSource.dataChanged = { [weak self] in
+      self?.collectionView.reloadData()
+    }
+    
+    dataSource.fetchSocial("https://api.letsbuildthatapp.com/appstore/social")
   }
+  
 }
 
 
@@ -34,6 +41,6 @@ extension AppsHeaderHorizontalController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    return .init(top: 0, left: 16, bottom: 0, right: 0)
+    return .init(top: 0, left: 16, bottom: 0, right: 16)
   }
 }

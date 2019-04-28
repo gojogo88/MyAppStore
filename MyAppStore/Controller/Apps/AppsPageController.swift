@@ -14,6 +14,14 @@ class AppsPageController: BaseListController {
   
   var appgroups = [AppGroup]()
   
+  let activityIndicatorView: UIActivityIndicatorView = {
+    let aiv = UIActivityIndicatorView(style: .whiteLarge)
+    aiv.color = .black
+    aiv.startAnimating()
+    aiv.hidesWhenStopped = true
+    return aiv
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -25,19 +33,47 @@ class AppsPageController: BaseListController {
     
     self.collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: dataSource.headerId)
 
+    view.addSubview(activityIndicatorView)
+    activityIndicatorView.fillSuperview()
+    
 //    dataSource.dataChanged = { [weak self] in
 //      self?.collectionView.reloadData()
 //    }
   dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json")
-    
+
   dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing/all/50/explicit.json")
-    
+
   dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/all/50/explicit.json")
-    
+
     dataSource.dispatchGroup.notify(queue: .main) {
+      self.activityIndicatorView.stopAnimating()
       self.collectionView.reloadData()
     }
+    //fetchData()
   }
+  
+  /*
+  func fetchData() {
+    let dispatchGroup = DispatchGroup()
+    
+     dispatchGroup.enter()
+    dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json")
+    dispatchGroup.leave()
+    
+    dispatchGroup.enter()
+    dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing/all/50/explicit.json")
+    dispatchGroup.leave()
+    
+    dispatchGroup.enter()
+    dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/all/50/explicit.json")
+    dispatchGroup.leave()
+    
+        dispatchGroup.notify(queue: .main) {
+          self.collectionView.reloadData()
+        }
+
+  }
+  */
 }
 
 extension AppsPageController: UICollectionViewDelegateFlowLayout {
@@ -50,6 +86,6 @@ extension AppsPageController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    return .init(width: view.frame.width, height: 0)
+    return .init(width: view.frame.width, height: 300)
   }
 }
