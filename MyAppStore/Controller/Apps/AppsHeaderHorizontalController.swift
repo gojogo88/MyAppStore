@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppsHeaderHorizontalController: BaseListController {
+class AppsHeaderHorizontalController: HorizontalSnappingController {
   
   let dataSource = AppsHeaderControllerDataSource()
   
@@ -20,16 +20,14 @@ class AppsHeaderHorizontalController: BaseListController {
 
     // Register cell classes
     self.collectionView!.register(AppHeaderCell.self, forCellWithReuseIdentifier: dataSource.reuseIdentifier)
-    
-    if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-      layout.scrollDirection = .horizontal
-    }
   
     dataSource.dataChanged = { [weak self] in
       self?.collectionView.reloadData()
     }
     
     dataSource.fetchSocial("https://api.letsbuildthatapp.com/appstore/social")
+    
+    collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
   }
   
 }
@@ -40,7 +38,7 @@ extension AppsHeaderHorizontalController: UICollectionViewDelegateFlowLayout {
     return .init(width: view.frame.width - 48, height: view.frame.height)
   }
   
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    return .init(top: 0, left: 16, bottom: 0, right: 16)
-  }
+//  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//    return .init(top: 0, left: 16, bottom: 0, right: 16)
+//  }
 }
