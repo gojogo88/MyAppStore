@@ -17,7 +17,6 @@ class AppDetailController: BaseListController {
       //print("here is my addID:", appId)
       let urlString = "https://itunes.apple.com/lookup?id=\(appId ?? "")"
       dataSource.fetchAppDetails(urlString)
-      
     }
   }
   
@@ -30,14 +29,20 @@ class AppDetailController: BaseListController {
     
     self.collectionView!.register(PreviewCell.self, forCellWithReuseIdentifier: dataSource.previewIdentifier)
     
+    self.collectionView!.register(ReviewRowCell.self, forCellWithReuseIdentifier: dataSource.reviewIdentifier)
+    
     dataSource.dataChanged = { [weak self] in
       self?.collectionView.reloadData()
     }
+    
+    dataSource.fetchAppReviews("https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId ?? "")/sortby=mostrecent/json?1=en&cc=us")
   }
 }
 
 extension AppDetailController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+    var height: CGFloat = 280
     
     if indexPath.item == 0 {
       //calculate cell height for auto-resizing
@@ -47,10 +52,13 @@ extension AppDetailController: UICollectionViewDelegateFlowLayout {
       dummyCell.layoutIfNeeded()
     
       let estimatedSize = dummyCell.systemLayoutSizeFitting(size)
-      return .init(width: view.frame.width, height: estimatedSize.height)
+      height = estimatedSize.height
+    } else if indexPath.item == 1 {
+      height = 500
     } else {
-      return .init(width: view.frame.width, height: 500)
+      height = 280
     }
+    return .init(width: view.frame.width, height: height)
     
 //    let dummyCell = AppDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
 //    dummyCell.appResult = dataSource.result

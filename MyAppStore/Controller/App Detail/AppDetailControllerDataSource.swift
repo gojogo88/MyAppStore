@@ -14,9 +14,13 @@ class AppDetailControllerDataSource: NSObject, UICollectionViewDataSource {
   
   let previewIdentifier = "previewCell"
   
+  let reviewIdentifier = "reviewCell"
+  
   var dataChanged: (() -> Void)?
   
   var result: Result!
+  
+  var reviews: Review?
   
   // MARK: - Fetch JSON Data
   func fetchAppDetails(_ urlString: String) {
@@ -29,23 +33,38 @@ class AppDetailControllerDataSource: NSObject, UICollectionViewDataSource {
     }
   }
   
+  func fetchAppReviews(_ urlString: String) {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601
+    
+    decoder.decode(Review.self, fromURL: urlString) { (reviews) in
+      self.reviews = reviews
+      self.dataChanged?()
+    }
+  }
+  
   // MARK: - CollectionView DataSource
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 2
+    return 3
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-    if indexPath.item == 0{
+    if indexPath.item == 0 {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AppDetailCell
     
       cell.appResult = result
       return cell
-    } else {
+    } else if indexPath.item == 1 {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: previewIdentifier, for: indexPath) as! PreviewCell
       
       cell.horizontalController.dataSource.appResult = self.result
       
+      return cell
+    } else {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reviewIdentifier, for: indexPath) as! ReviewRowCell
+      
+      cell.reviewController.dataSource.reviews = self.reviews
       return cell
     }
   }
