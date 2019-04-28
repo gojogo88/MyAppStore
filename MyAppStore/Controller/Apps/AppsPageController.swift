@@ -12,6 +12,8 @@ class AppsPageController: BaseListController {
 
   let dataSource = AppsPageDataSource()
   
+  var appgroups = [AppGroup]()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -23,9 +25,19 @@ class AppsPageController: BaseListController {
     
     self.collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: dataSource.headerId)
 
+//    dataSource.dataChanged = { [weak self] in
+//      self?.collectionView.reloadData()
+//    }
+  dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json")
+    
+  dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing/all/50/explicit.json")
+    
+  dataSource.fetchAppGroup("https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/all/50/explicit.json")
+    
+    dataSource.dispatchGroup.notify(queue: .main) {
+      self.collectionView.reloadData()
+    }
   }
-
-  
 }
 
 extension AppsPageController: UICollectionViewDelegateFlowLayout {
@@ -38,6 +50,6 @@ extension AppsPageController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    return .init(width: view.frame.width, height: 300)
+    return .init(width: view.frame.width, height: 0)
   }
 }

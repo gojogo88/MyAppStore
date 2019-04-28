@@ -17,6 +17,16 @@ class AppsRowCell: UICollectionViewCell {
   
   let getButton = UIButton(title: "GET")
   
+  var appFeedResult: FeedResult! {
+    didSet {
+      nameLabel.text = appFeedResult.name
+      companyLabel.text = appFeedResult.artistName
+      
+      let url = URL(string: appFeedResult.artworkUrl100)
+      imageView.sd_setImage(with: url)
+    }
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
         

@@ -12,13 +12,18 @@ class AppsHorizontalDataSource: NSObject, UICollectionViewDataSource {
   
   let reuseIdentifier = "Cell"
   
+  var appGroup: AppGroup?
+  
   // MARK: - CollectionView DataSource
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 10
+    return appGroup?.feed.results.count ?? 0
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AppsRowCell
+    
+    let app = appGroup?.feed.results[indexPath.item]
+    cell.appFeedResult = app
     
     return cell
   }
