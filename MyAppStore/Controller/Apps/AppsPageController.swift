@@ -88,4 +88,11 @@ extension AppsPageController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
     return .init(width: view.frame.width, height: 300)
   }
+  
+//  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    let app = dataSource.groups[indexPath.item]
+//    let redController = UIViewController()
+//    redController.view.backgroundColor = .red
+//    self.navigationController?.pushViewController(redController, animated: true)
+//  }
 }

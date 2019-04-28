@@ -16,7 +16,7 @@ class AppsPageDataSource: NSObject, UICollectionViewDataSource {
   
   var groups = [AppGroup]()
   
-  //var dataChanged: (() -> Void)?
+  var pushHandler: (() -> ())?
   
   let dispatchGroup = DispatchGroup()
   
@@ -48,14 +48,19 @@ class AppsPageDataSource: NSObject, UICollectionViewDataSource {
     cell.titleLabel.text = appGroup.feed.title
     cell.horizontalController.dataSource.appGroup = appGroup
     cell.horizontalController.collectionView.reloadData()
+    cell.horizontalController.didSelectHandler = { [weak self] feedResult in
+      let controller = AppDetailController()
+      controller.navigationItem.title = feedResult.name
+      controller.appId = feedResult.id
+      self?.navigationController?.pushViewController(controller, animated: true)
+    }
     return cell
   }
   
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! AppsPageHeader
     
-    //header.appHeaderHorizontalController.dataSource.socialApps = 
-    
+    //header.appHeaderHorizontalController.dataSource.socialApps =
     return header
   }
 }

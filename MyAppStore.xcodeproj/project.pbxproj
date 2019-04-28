@@ -11,6 +11,14 @@
 		6CA095AC2275710E000ECEF1 /* SocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095AB2275710E000ECEF1 /* SocialApp.swift */; };
 		6CA095AE2275799E000ECEF1 /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095AD2275799E000ECEF1 /* HorizontalSnappingController.swift */; };
 		6CA095B022757D1D000ECEF1 /* SnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095AF22757D1D000ECEF1 /* SnappingLayout.swift */; };
+		6CA095B32275938D000ECEF1 /* AppDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095B22275938D000ECEF1 /* AppDetailController.swift */; };
+		6CA095B5227595FB000ECEF1 /* AppDetailControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095B4227595FB000ECEF1 /* AppDetailControllerDataSource.swift */; };
+		6CA095B722759853000ECEF1 /* AppDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095B622759853000ECEF1 /* AppDetailCell.swift */; };
+		6CA095B922759B10000ECEF1 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095B822759B10000ECEF1 /* UIStackView+Extension.swift */; };
+		6CA095BB2275A202000ECEF1 /* PreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095BA2275A202000ECEF1 /* PreviewCell.swift */; };
+		6CA095BD2275A36A000ECEF1 /* PreviewScreenshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095BC2275A36A000ECEF1 /* PreviewScreenshotController.swift */; };
+		6CA095BF2275A7B6000ECEF1 /* PreviewScreenshotDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095BE2275A7B6000ECEF1 /* PreviewScreenshotDataSource.swift */; };
+		6CA095C12275A881000ECEF1 /* ScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA095C02275A881000ECEF1 /* ScreenshotCell.swift */; };
 		6CD11FC5227160A300367C9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD11FC4227160A300367C9D /* AppDelegate.swift */; };
 		6CD11FCA227160A300367C9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CD11FC8227160A300367C9D /* Main.storyboard */; };
 		6CD11FCC227160A600367C9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CD11FCB227160A600367C9D /* Assets.xcassets */; };
@@ -45,6 +53,14 @@
 		6CA095AB2275710E000ECEF1 /* SocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialApp.swift; sourceTree = "<group>"; };
 		6CA095AD2275799E000ECEF1 /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
 		6CA095AF22757D1D000ECEF1 /* SnappingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingLayout.swift; sourceTree = "<group>"; };
+		6CA095B22275938D000ECEF1 /* AppDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailController.swift; sourceTree = "<group>"; };
+		6CA095B4227595FB000ECEF1 /* AppDetailControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailControllerDataSource.swift; sourceTree = "<group>"; };
+		6CA095B622759853000ECEF1 /* AppDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCell.swift; sourceTree = "<group>"; };
+		6CA095B822759B10000ECEF1 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
+		6CA095BA2275A202000ECEF1 /* PreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCell.swift; sourceTree = "<group>"; };
+		6CA095BC2275A36A000ECEF1 /* PreviewScreenshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreenshotController.swift; sourceTree = "<group>"; };
+		6CA095BE2275A7B6000ECEF1 /* PreviewScreenshotDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreenshotDataSource.swift; sourceTree = "<group>"; };
+		6CA095C02275A881000ECEF1 /* ScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCell.swift; sourceTree = "<group>"; };
 		6CD11FC1227160A300367C9D /* MyAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CD11FC4227160A300367C9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CD11FC9227160A300367C9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -90,6 +106,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6CA095B12275936A000ECEF1 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				6CA095B22275938D000ECEF1 /* AppDetailController.swift */,
+				6CA095B4227595FB000ECEF1 /* AppDetailControllerDataSource.swift */,
+				6CA095BC2275A36A000ECEF1 /* PreviewScreenshotController.swift */,
+				6CA095BE2275A7B6000ECEF1 /* PreviewScreenshotDataSource.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		6CD11FB8227160A300367C9D = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +154,7 @@
 		6CD11FD822716B3200367C9D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6CA095B12275936A000ECEF1 /* Detail */,
 				6CF580232272AAE300931FF6 /* Search */,
 				6CF5801E2272A90100931FF6 /* Apps */,
 				6CD11FD62271616A00367C9D /* BaseTabBarController.swift */,
@@ -142,6 +170,9 @@
 				6CD11FDC22716F9F00367C9D /* SearchResultCell.swift */,
 				6CF580262272AC3900931FF6 /* AppsGroupCell.swift */,
 				6CD641172273FA0D004C12AF /* AppHeaderCell.swift */,
+				6CA095B622759853000ECEF1 /* AppDetailCell.swift */,
+				6CA095C02275A881000ECEF1 /* ScreenshotCell.swift */,
+				6CA095BA2275A202000ECEF1 /* PreviewCell.swift */,
 				6CF5802E227311F200931FF6 /* AppRowCell.swift */,
 			);
 			path = Views;
@@ -155,6 +186,7 @@
 				6CD11FE12271813600367C9D /* VerticalStackView.swift */,
 				6CF580282272AECE00931FF6 /* UILabel+Extension.swift */,
 				6CF580302273136A00931FF6 /* UIImageView+Extension.swift */,
+				6CA095B822759B10000ECEF1 /* UIStackView+Extension.swift */,
 				6CF580322273149100931FF6 /* UIButton+Extension.swift */,
 				6CA095AF22757D1D000ECEF1 /* SnappingLayout.swift */,
 			);
@@ -323,24 +355,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CA095B32275938D000ECEF1 /* AppDetailController.swift in Sources */,
 				6CF580252272AB1D00931FF6 /* AppsPageDataSource.swift in Sources */,
+				6CA095BD2275A36A000ECEF1 /* PreviewScreenshotController.swift in Sources */,
 				6CD641162273F616004C12AF /* AppsHeaderControllerDataSource.swift in Sources */,
 				6CD11FC5227160A300367C9D /* AppDelegate.swift in Sources */,
+				6CA095BF2275A7B6000ECEF1 /* PreviewScreenshotDataSource.swift in Sources */,
 				6CF5802D2272B98800931FF6 /* AppsHorizontalDataSource.swift in Sources */,
 				6CA095B022757D1D000ECEF1 /* SnappingLayout.swift in Sources */,
 				6CF580202272A92600931FF6 /* AppsPageController.swift in Sources */,
 				6CD641142273EC51004C12AF /* AppsHeaderHorizontalController.swift in Sources */,
 				6CF580332273149100931FF6 /* UIButton+Extension.swift in Sources */,
 				6CA095AE2275799E000ECEF1 /* HorizontalSnappingController.swift in Sources */,
+				6CA095B722759853000ECEF1 /* AppDetailCell.swift in Sources */,
+				6CA095C12275A881000ECEF1 /* ScreenshotCell.swift in Sources */,
 				6CD6411A22740A3F004C12AF /* AppGroup.swift in Sources */,
 				6CD641182273FA0D004C12AF /* AppHeaderCell.swift in Sources */,
 				6CD11FE22271813600367C9D /* VerticalStackView.swift in Sources */,
+				6CA095BB2275A202000ECEF1 /* PreviewCell.swift in Sources */,
 				6CD11FE622718AB600367C9D /* SearchResult.swift in Sources */,
 				6CF5802B2272B10B00931FF6 /* AppsHorizontalController.swift in Sources */,
 				6CD11FD72271616A00367C9D /* BaseTabBarController.swift in Sources */,
 				6CD11FEB2271911E00367C9D /* SearchResultDataSource.swift in Sources */,
 				6CF580272272AC3900931FF6 /* AppsGroupCell.swift in Sources */,
 				6CD11FE4227189E100367C9D /* JSONDecoder-Remote.swift in Sources */,
+				6CA095B922759B10000ECEF1 /* UIStackView+Extension.swift in Sources */,
 				6CD11FDD22716F9F00367C9D /* SearchResultCell.swift in Sources */,
 				6CA095AC2275710E000ECEF1 /* SocialApp.swift in Sources */,
 				6CD641122273E79B004C12AF /* AppsPageHeader.swift in Sources */,
@@ -349,6 +388,7 @@
 				6CD11FDA22716B5400367C9D /* AppsSearchController.swift in Sources */,
 				6CF580222272AA1C00931FF6 /* BaseListController.swift in Sources */,
 				6CD11FE022717E4A00367C9D /* UIView+Layout.swift in Sources */,
+				6CA095B5227595FB000ECEF1 /* AppDetailControllerDataSource.swift in Sources */,
 				6CF5802F227311F200931FF6 /* AppRowCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

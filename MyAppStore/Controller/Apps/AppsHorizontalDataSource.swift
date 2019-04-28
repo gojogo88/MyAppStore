@@ -21,10 +21,11 @@ class AppsHorizontalDataSource: NSObject, UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AppsRowCell
-    
+
     let app = appGroup?.feed.results[indexPath.item]
     cell.appFeedResult = app
-    
+
     return cell
   }
+  
 }
