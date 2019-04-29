@@ -10,15 +10,15 @@ import UIKit
 
 class AppDetailCell: UICollectionViewCell {
   
-  var appResult: Result! {
+  var appResult: Result? {
     didSet {
-      nameLabel.text = appResult.trackName
-      releaseNotesLabel.text = appResult.releaseNotes
+      nameLabel.text = appResult?.trackName
+      releaseNotesLabel.text = appResult?.releaseNotes
       
-      let url = URL(string: appResult.artworkUrl100)
+      let url = URL(string: appResult?.artworkUrl100 ?? "")
       appIconImageView.sd_setImage(with: url)
       
-      priceButton.setTitle(appResult.formattedPrice, for: .normal)
+      priceButton.setTitle(appResult?.formattedPrice, for: .normal)
     }
   }
   
@@ -30,12 +30,13 @@ class AppDetailCell: UICollectionViewCell {
   
   let whatsnewLabel = UILabel(text: "What's New", font: .boldSystemFont(ofSize: 20))
   
-  let releaseNotesLabel = UILabel(text: "Release Notes", font: .boldSystemFont(ofSize: 20), numberOfLines: 0)
+  let releaseNotesLabel = UILabel(text: "Release Notes", font: .boldSystemFont(ofSize: 18), numberOfLines: 0)
 
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-        
+    
+    print("I'm in appdetail cell")
     appIconImageView.backgroundColor = .red
     appIconImageView.constrainWidth(constant: 140)
     appIconImageView.constrainHeight(constant: 140)

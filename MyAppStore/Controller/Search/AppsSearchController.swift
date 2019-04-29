@@ -56,6 +56,12 @@ extension AppsSearchController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return .init(width: view.frame.width, height: 350)
   }
+  
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let appId = String(dataSource.appResults[indexPath.item].trackId)
+    let appDetailController = AppDetailController(appId: appId)
+    navigationController?.pushViewController(appDetailController, animated: true)
+  }
 }
 
 extension AppsSearchController: UISearchBarDelegate {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReviewControllerDataSource: NSObject, UICollectionViewDataSource {
+class ReviewsControllerDataSource: NSObject, UICollectionViewDataSource {
   
   var dataChanged: (() -> Void)?
   

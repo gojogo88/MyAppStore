@@ -16,7 +16,9 @@ class AppsPageDataSource: NSObject, UICollectionViewDataSource {
   
   var groups = [AppGroup]()
   
-  var pushHandler: (() -> ())?
+  //var pushHandler: (() -> ())?
+  
+  var HandlerforNewVC: ((FeedResult) -> ())?
   
   let dispatchGroup = DispatchGroup()
   
@@ -49,10 +51,10 @@ class AppsPageDataSource: NSObject, UICollectionViewDataSource {
     cell.horizontalController.dataSource.appGroup = appGroup
     cell.horizontalController.collectionView.reloadData()
     cell.horizontalController.didSelectHandler = { [weak self] feedResult in
-      let controller = AppDetailController()
-      controller.navigationItem.title = feedResult.name
-      controller.appId = feedResult.id
-      self?.navigationController?.pushViewController(controller, animated: true)
+      self?.HandlerforNewVC?(feedResult)
+      // let controller = AppDetailController(appId: feedResult.id)
+      //controller.navigationItem.title = feedResult.name
+      //self?.navigationController?.pushViewController(controller, animated: true)
     }
     return cell
   }

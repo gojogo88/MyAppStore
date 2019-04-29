@@ -50,6 +50,13 @@ class AppsPageController: BaseListController {
       self.collectionView.reloadData()
     }
     //fetchData()
+    
+    dataSource.HandlerforNewVC = { [weak self] feedResult in
+      let controller = AppDetailController(appId: feedResult.id)
+      controller.navigationItem.title = feedResult.name
+      print(feedResult.id)
+      self?.navigationController?.pushViewController(controller, animated: true)
+    }
   }
   
   /*

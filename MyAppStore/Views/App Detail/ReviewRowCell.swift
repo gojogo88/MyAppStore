@@ -10,15 +10,19 @@ import UIKit
 
 class ReviewRowCell: UICollectionViewCell {
   
-  let reviewController = ReviewController()
+  let reviewsController = ReviewsController()
+  
+  let reviewsRatingsLabel = UILabel(text: "Reviews & Ratings", font: .boldSystemFont(ofSize: 20))
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     
-    backgroundColor = .yellow
+    //backgroundColor = .yellow
+    addSubview(reviewsRatingsLabel)
+    reviewsRatingsLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: 20))
     
-    addSubview(reviewController.view)
-    reviewController.view.fillSuperview()
+    addSubview(reviewsController.view)
+    reviewsController.view.anchor(top: reviewsRatingsLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 0))
   }
   
   required init?(coder aDecoder: NSCoder) {

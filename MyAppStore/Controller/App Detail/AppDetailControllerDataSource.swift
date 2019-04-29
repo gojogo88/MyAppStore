@@ -10,16 +10,14 @@ import UIKit
 
 class AppDetailControllerDataSource: NSObject, UICollectionViewDataSource {
   
-  let reuseIdentifier = "cell"
+  let reuseIdentifier = "detailCellId"
+  let previewIdentifier = "previewCellId"
+  let reviewIdentifier = "reviewCellId"
   
-  let previewIdentifier = "previewCell"
+  var appDetailsFetched: (() -> ())?
+  var appReviewsfetched: (() -> ())?
   
-  let reviewIdentifier = "reviewCell"
-  
-  var dataChanged: (() -> Void)?
-  
-  var result: Result!
-  
+  var app: Result?
   var reviews: Review?
   
   // MARK: - Fetch JSON Data
@@ -27,9 +25,9 @@ class AppDetailControllerDataSource: NSObject, UICollectionViewDataSource {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601
     
-    decoder.decode(Result.self, fromURL: urlString) { (appDetails) in
-      self.result = appDetails
-      self.dataChanged?()
+    decoder.decode(SearchResult.self, fromURL: urlString) { (result) in
+      self.app = result.results.first
+      self.appDetailsFetched?()
     }
   }
   
@@ -39,7 +37,7 @@ class AppDetailControllerDataSource: NSObject, UICollectionViewDataSource {
     
     decoder.decode(Review.self, fromURL: urlString) { (reviews) in
       self.reviews = reviews
-      self.dataChanged?()
+      self.appReviewsfetched?()
     }
   }
   
@@ -52,19 +50,15 @@ class AppDetailControllerDataSource: NSObject, UICollectionViewDataSource {
     
     if indexPath.item == 0 {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AppDetailCell
-    
-      cell.appResult = result
+      cell.appResult = app
       return cell
     } else if indexPath.item == 1 {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: previewIdentifier, for: indexPath) as! PreviewCell
-      
-      cell.horizontalController.dataSource.appResult = self.result
-      
+      cell.horizontalController.dataSource.appResult = self.app
       return cell
     } else {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reviewIdentifier, for: indexPath) as! ReviewRowCell
-      
-      cell.reviewController.dataSource.reviews = self.reviews
+      cell.reviewsController.dataSource.reviews = self.reviews
       return cell
     }
   }

@@ -16,10 +16,15 @@ class PreviewScreenshotController: HorizontalSnappingController {
     super.viewDidLoad()
     
     collectionView.backgroundColor = .white
+    collectionView.dataSource = dataSource
     collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
     
     // Register cell classes
     self.collectionView!.register(ScreenshotCell.self, forCellWithReuseIdentifier: dataSource.reuseIdentifier)
+    
+    dataSource.dataChanged = { [weak self] in
+      self?.collectionView.reloadData()
+    }
   }
 }
 
