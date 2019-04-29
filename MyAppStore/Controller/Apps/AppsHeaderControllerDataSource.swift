@@ -10,7 +10,7 @@ import UIKit
 
 class AppsHeaderControllerDataSource: NSObject, UICollectionViewDataSource {
   
-  let reuseIdentifier = "Cell"
+  let reuseIdentifier = "cellId"
   
   var socialApps = [SocialApp]()
   
