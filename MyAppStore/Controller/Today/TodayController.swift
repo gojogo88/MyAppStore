@@ -13,6 +13,9 @@ class TodayController: BaseListController {
   let dataSource = TodayControllerDataSource()
   
   var appFullScreenController: AppFullScreenController!
+  
+  static var cellSize: CGFloat = 500
+  
   var startingFrame: CGRect?
   
   var topConstraint: NSLayoutConstraint?
@@ -29,7 +32,8 @@ class TodayController: BaseListController {
     navigationController?.isNavigationBarHidden = true
     
     // Register cell classes
-    self.collectionView!.register(TodayCell.self, forCellWithReuseIdentifier: dataSource.reuseIdentifier)
+    collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
+    collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
   }
   
   @objc func handleRemoveRedView() {
@@ -62,7 +66,7 @@ class TodayController: BaseListController {
 
 extension TodayController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return .init(width: view.frame.width - 64, height: 450)
+    return .init(width: view.frame.width - 64, height: TodayController.cellSize)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
