@@ -16,6 +16,8 @@ class AppFullScreenDataSource: NSObject, UITableViewDataSource {
   
   var dismissHandler: (() ->())?
   
+  var todayItem: TodayItem?
+  
   @objc fileprivate func handleDismiss(button: UIButton) {
     button.isHidden = true
     dismissHandler?()
@@ -26,13 +28,15 @@ class AppFullScreenDataSource: NSObject, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if indexPath.row == 0 {
+    if indexPath.item == 0 {
       let headerCell = AppFullScreenHeaderCell()
       headerCell.closeButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+      headerCell.todayCell.todayItem = todayItem
+      headerCell.todayCell.layer.cornerRadius = 0
       return headerCell
     }
     
-    let cell = AppFullScreenDescrptionCell()
+    let cell = AppFullScreenDescriptionCell()
     return cell
   }
   

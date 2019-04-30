@@ -18,14 +18,18 @@ class AppFullScreenController: UITableViewController {
     tableView.dataSource = dataSource
     
     // Register cell classes
-    tableView.register(AppFullScreenDescrptionCell.self, forCellReuseIdentifier: dataSource.reuseIdentifier)
+    tableView.register(AppFullScreenDescriptionCell.self, forCellReuseIdentifier: dataSource.reuseIdentifier)
     
     tableView.register(AppFullScreenHeaderCell.self, forCellReuseIdentifier: dataSource.headerIdentifier)
     
+    tableView.tableFooterView = UIView()
     tableView.separatorStyle = .none
-    tableView.tableFooterView = UIView() // removes lines
     tableView.showsVerticalScrollIndicator = false
-    tableView.showsVerticalScrollIndicator = false
+    tableView.allowsSelection = false
+    tableView.contentInsetAdjustmentBehavior = .never
+    
+    let height = UIApplication.shared.statusBarFrame.height
+    tableView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
     
   }
   
