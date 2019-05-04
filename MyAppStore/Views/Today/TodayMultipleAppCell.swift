@@ -14,13 +14,16 @@ class TodayMultipleAppCell: BaseTodayCell {
     didSet {
       categoryLabel.text = todayItem.category
       titleLabel.text = todayItem.title
+      
+      multipleAppController.dataSource.apps = todayItem.apps
+      multipleAppController.collectionView.reloadData()
     }
   }
   
   let categoryLabel = UILabel(text: "LIFE HACK", font: .boldSystemFont(ofSize: 20))
   let titleLabel = UILabel(text: "Utilizing your Time", font: .boldSystemFont(ofSize: 32), numberOfLines: 2)
   
-  let multipleAppController = TodayMultipleAppController()
+  let multipleAppController = TodayMultipleAppController(mode: .small)
   
   override init(frame: CGRect) {
     super.init(frame: frame)

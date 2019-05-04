@@ -12,27 +12,33 @@ class TodayMultipleAppDataSource: NSObject, UICollectionViewDataSource {
   
   let reuseIdentifier = "cellId"
   
-  var results = [FeedResult]()
+  var apps = [FeedResult]()
   
   var dataChanged: (() -> Void)?
+  
+  var fullScreen = false
 
   func fetchGames(_ urlString: String) {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601
     
     decoder.decode(AppGroup.self, fromURL: urlString) { (result) in
-      self.results = result.feed.results
+      self.apps = result.feed.results
       self.dataChanged?()
     }
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return  min(4, results.count)
+    if fullScreen {
+      return apps.count
+    }
+    return  min(4, apps.count)
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MultipleAppCell
-    cell.app = self.results[indexPath.item]
+    cell.app = self.apps[indexPath.item]
     return cell
   }
+  
 }

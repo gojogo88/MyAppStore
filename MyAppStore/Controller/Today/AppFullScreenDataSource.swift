@@ -33,6 +33,7 @@ class AppFullScreenDataSource: NSObject, UITableViewDataSource {
       headerCell.closeButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
       headerCell.todayCell.todayItem = todayItem
       headerCell.todayCell.layer.cornerRadius = 0
+      headerCell.clipsToBounds = true  //removes the shadow
       return headerCell
     }
     

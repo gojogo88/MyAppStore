@@ -10,17 +10,76 @@ import UIKit
 
 class TodayControllerDataSource: NSObject, UICollectionViewDataSource {
   
-  var dataChanged: (() -> Void)?
+  var dataChanged: (() -> ())?
   
-  let items = [
-    TodayItem.init(category: "LIFE HACK", title: "Utilizing your Time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white, cellType: .single),
+  var handlePresent: ((UIGestureRecognizer) -> ())?
+  
+//  let items = [
+//    TodayItem.init(category: "LIFE HACK", title: "Utilizing your Time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white, cellType: .single),
+//
+//    TodayItem.init(category: "SECOND CELL", title: "Test-Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple),
+//
+//    TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1), cellType: .single),
+//
+//    TodayItem.init(category: "MULTIPLE CELL", title: "Test-Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple)
+//  ]
+  
+  var items = [TodayItem]()
+  
+  var topGrossingGroup: AppGroup?
+  
+  var gamesGroup: AppGroup?
+  
+  let dispatchGroup = DispatchGroup()
+  
+  // MARK: - Fetch JSON Data
+  func fetchAppGroup(urlString1: String, urlString2: String) {
     
-    TodayItem.init(category: "SECOND CELL", title: "Test-Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple),
+    fetchtopGrossingGroup(urlString1)
+    fetchGamesGroup(urlString2)
     
-    TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1), cellType: .single),
+    dispatchGroup.notify(queue: .main) {
+      //self.activityIndicatorView.stopAnimating()
+      self.items = [
+         TodayItem.init(category: "LIFE HACK", title: "Utilizing your Time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white, cellType: .single, apps: []),
+         
+        TodayItem.init(category: "Daily List", title: self.topGrossingGroup?.feed.title ?? "", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple, apps: self.topGrossingGroup?.feed.results ?? []),
+        
+        TodayItem.init(category: "Daily List", title: self.gamesGroup?.feed.title ?? "", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple, apps: self.gamesGroup?.feed.results ?? []),
+        
+        TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1), cellType: .single, apps: [])
+      ]
+      
+      self.dataChanged?()
+    }
     
-    TodayItem.init(category: "MULTIPLE CELL", title: "Test-Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple)
-  ]
+  }
+  
+  func fetchtopGrossingGroup(_ urlString1: String) {
+    dispatchGroup.enter()
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601
+    
+    decoder.decode(AppGroup.self, fromURL: urlString1) { (appGroup) in
+      self.topGrossingGroup = appGroup
+      self.dispatchGroup.leave()
+    }
+  }
+  
+  func fetchGamesGroup(_ urlString2: String) {
+    dispatchGroup.enter()
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601
+    
+    decoder.decode(AppGroup.self, fromURL: urlString2) { (appGroup) in
+      self.gamesGroup = appGroup
+      self.dispatchGroup.leave()
+    }
+  }
+  
+  @objc fileprivate func handleMultipleAppTap(gesture: UIGestureRecognizer) {
+    handlePresent?(gesture)
+  }
   
   // MARK: - CollectionView DataSource
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -32,6 +91,11 @@ class TodayControllerDataSource: NSObject, UICollectionViewDataSource {
     
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! BaseTodayCell
     cell.todayItem = items[indexPath.item]
+    
+    (cell as? TodayMultipleAppCell)?.multipleAppController.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMultipleAppTap)))
+    
+    (cell as? TodayMultipleAppCell)?.multipleAppController.collectionView.isUserInteractionEnabled = false
+    
     return cell
     
     // multiple app cell
